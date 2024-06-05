@@ -5,7 +5,7 @@ import { NgModule } from '@angular/core';
 import { StoreModule } from '@ngrx/store';
 
 import { AppTrendsRoutingModule } from './app-trends-routing.module';
-import { AuthInterceptor } from './auth-interceptor';
+import { AuthInterceptor } from '../../core/interceptors/auth-interceptor';
 import { TrendDetailComponent } from './trend-detail/trend-detail.component';
 import { TrendService } from './trend.service';
 import { TrendsListComponent } from './trends-list/trends-list.component';
