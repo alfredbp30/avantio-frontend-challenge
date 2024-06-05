@@ -32,6 +32,7 @@ import { selectIsLoadingState } from './core/store/selectors';
     </nav>
     <main class="app-main-content">
       <router-outlet></router-outlet>
+      <app-fab-button src="assets/Iconos/Actions/add.svg" title="Añadir" ariaLabel="Añadir"></app-fab-button>
     </main>
   `,
   styleUrls: ['./app.component.scss'],
