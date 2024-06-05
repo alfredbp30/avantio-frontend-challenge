@@ -6,22 +6,21 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { registerLocaleData } from '@angular/common';
 
 import { AppComponent } from './app.component';
-import { AppLayoutModule } from './layout';
-import { AppMenuModule } from './menu';
-import { AppPageNotFoundComponent } from './app-page-not-found.component';
-import { AppProgressBarComponent } from './app-progress-bar.component';
+import { AppLayoutModule } from './core/layout';
+import { AppMenuModule } from './components/menu';
+import { AppPageNotFoundComponent } from './features/misc/app-page-not-found.component';
 import { AppRoutingModule } from './app-routing.module';
-import { AppTrendsModule } from './trends';
-import { httpInterceptorProviders } from './app-http-interceptors';
-import { reducers } from './store/reducers';
+import { AppTrendsModule } from './features/trends';
+import { httpInterceptorProviders } from './core/interceptors/app-http-interceptors';
+import { reducers } from './core/store/reducers';
 
 import localeEs from '@angular/common/locales/es';
+import { AppProgressBarModule } from './components/progress-bar/progress-bar.module';
 registerLocaleData(localeEs, 'es');
 
 @NgModule({
   declarations: [
     AppComponent,
-    AppProgressBarComponent,
     AppPageNotFoundComponent,
   ],
   imports: [
@@ -30,6 +29,7 @@ registerLocaleData(localeEs, 'es');
     AppRoutingModule,
     AppLayoutModule,
     AppMenuModule,
+    AppProgressBarModule,
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([]),
     StoreRouterConnectingModule.forRoot()

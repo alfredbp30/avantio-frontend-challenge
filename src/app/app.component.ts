@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { delay } from 'rxjs/operators';
 
-import { CustomBreakpointObserver } from './layout';
-import { selectIsLoadingState } from './store/selectors';
+import { CustomBreakpointObserver } from './core/layout';
+import { selectIsLoadingState } from './core/store/selectors';
 
 @Component({
   selector: 'app-root',

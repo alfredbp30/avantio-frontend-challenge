@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { selectTrendsTotal } from 'src/app/trends/store/selectors';
+import { selectTrendsTotal } from '../../../features/trends/store/selectors';
 
 @Component({
   selector: 'app-menu-large',
