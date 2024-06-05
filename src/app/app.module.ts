@@ -17,6 +17,7 @@ import { reducers } from './core/store/reducers';
 import localeEs from '@angular/common/locales/es';
 import { AppProgressBarModule } from './components/progress-bar/progress-bar.module';
 import { AppFabButtonModule } from './components/fab-button/fab-button.module';
+import { AppDialogModule } from './components/dialog/dialog.module';
 registerLocaleData(localeEs, 'es');
 
 @NgModule({
@@ -32,6 +33,7 @@ registerLocaleData(localeEs, 'es');
     AppMenuModule,
     AppProgressBarModule,
     AppFabButtonModule,
+    AppDialogModule,
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([]),
     StoreRouterConnectingModule.forRoot()
