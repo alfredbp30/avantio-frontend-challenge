@@ -13,12 +13,16 @@ import { Component, Input } from '@angular/core';
 
       :host {
         position: fixed;
-        right: 64px;
-        bottom: 64px;
+        bottom: 22px;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        z-index: 2;
       }
 
       .fab {
-        width: 72px;
+        width: 48px;
         aspect-ratio: 1;
         cursor: pointer;
         border-width: 0px;
@@ -28,6 +32,20 @@ import { Component, Input } from '@angular/core';
 
         > img {
           filter: invert(100%) sepia(96%) saturate(15%) hue-rotate(212deg) brightness(104%) contrast(104%);
+        }
+      }
+
+      @media screen and (min-width: 768px) {
+        :host {
+          position: fixed;
+          right: 64px;
+          bottom: 64px;
+          left: auto;
+        }
+
+        .fab {
+          width: 72px;
+          aspect-ratio: 1;
         }
       }
     `,
