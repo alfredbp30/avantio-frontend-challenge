@@ -34,7 +34,9 @@ import { selectIsLoadingState } from './core/store/selectors';
       <router-outlet></router-outlet>
       <app-fab-button src="assets/Iconos/Actions/add.svg" title="Añadir" ariaLabel="Añadir" (click)="overlay.open = true"></app-fab-button>
     </main>
-    <app-dialog #overlay></app-dialog>
+    <app-dialog #overlay>
+      <app-trend-form [newTrend]="true"></app-trend-form>
+    </app-dialog>
   `,
   styleUrls: ['./app.component.scss'],
 })

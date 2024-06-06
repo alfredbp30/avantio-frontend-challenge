@@ -12,9 +12,10 @@ import { TrendsListComponent } from './trends-list/trends-list.component';
 import { trendsEffects } from './store/effects';
 import { trendsFeatureKey, trendsReducer } from './store/reducers';
 import { AppDialogModule } from 'src/app/components/dialog/dialog.module';
+import { TrendFormComponent } from './trend-form/trend-form.component';
 
 @NgModule({
-  declarations: [TrendsListComponent, TrendDetailComponent],
+  declarations: [TrendsListComponent, TrendDetailComponent, TrendFormComponent],
   imports: [
     CommonModule,
     AppTrendsRoutingModule,
@@ -23,7 +24,7 @@ import { AppDialogModule } from 'src/app/components/dialog/dialog.module';
     StoreModule.forFeature(trendsFeatureKey, trendsReducer),
     EffectsModule.forFeature(trendsEffects),
   ],
-  exports: [TrendsListComponent],
+  exports: [TrendsListComponent, TrendFormComponent],
   providers: [
     TrendService,
     {

@@ -35,8 +35,16 @@ import { selectSelectedTrend } from '../store/selectors';
         </div>
       </div>
     </article>
-    <app-dialog #editDialog></app-dialog>
-    <app-dialog #deleteDialog></app-dialog>
+    <app-dialog #editDialog>
+      <app-trend-form [newTrend]="false"></app-trend-form>
+    </app-dialog>
+    <app-dialog #deleteDialog class="trend__delete-dialog">
+      <p>¿Estás seguro que quieres eliminar la noticia?</p>
+      <div>
+        <a class="app-button app-button--primary">Eliminar</a>
+        <a class="app-button app-button--secondary" (click)="deleteDialog.open = false">Cancelar</a>
+      </div>
+    </app-dialog>
   `,
   styleUrls: ['./trend-detail.component.scss'],
 })

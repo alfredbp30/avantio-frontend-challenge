@@ -53,3 +53,22 @@ p {
     background-color: transparent;
   }
 }
+
+.app-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  label {
+    font-size: 12px;
+    line-height: 14px;
+    font-weight: 600;
+  }
+  input, textarea {
+    padding: 20px;
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: 400;
+    border: .6px solid $border-color;
+    border-radius: 2px;
+  }
+}
