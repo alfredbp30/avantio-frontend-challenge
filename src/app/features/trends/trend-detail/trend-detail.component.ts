@@ -13,10 +13,10 @@ import { selectSelectedTrend } from '../store/selectors';
     <article class="trend__detail" *ngIf="trend$ | async as trend">
       <header class="trend__header">
         <div class="trend__actions">
-          <button type="button" class="trend__action">
+          <button type="button" class="trend__action" (click)="editDialog.open = true">
             <img src="assets/Iconos/Actions/edit.svg" alt="Editar noticia" />
           </button>
-          <button type="button" class="trend__action">
+          <button type="button" class="trend__action" (click)="deleteDialog.open = true">
             <img src="assets/Iconos/Actions/delete.svg" alt="Borrar noticia" />
           </button>
         </div>
@@ -35,6 +35,8 @@ import { selectSelectedTrend } from '../store/selectors';
         </div>
       </div>
     </article>
+    <app-dialog #editDialog></app-dialog>
+    <app-dialog #deleteDialog></app-dialog>
   `,
   styleUrls: ['./trend-detail.component.scss'],
 })

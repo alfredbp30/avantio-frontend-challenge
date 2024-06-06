@@ -5,7 +5,7 @@ import { of } from 'rxjs';
 import { routerNavigationAction } from '@ngrx/router-store';
 
 import * as TrendsApiActions from '../actions/trends-api.actions';
-import * as TrendsListPageActions from '../actions/trends-list-page.actions';
+import * as TrendsListPageActions from '../actions/trends.actions';
 import { TrendService } from '../../trend.service';
 
 @Injectable()
@@ -35,6 +35,5 @@ export class TrendsEffects {
       )
     );
   });
-
   constructor(private actions$: Actions, private trendService: TrendService) {}
 }

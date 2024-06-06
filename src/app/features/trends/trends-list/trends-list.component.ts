@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { loadTrends } from '../store/actions/trends-list-page.actions';
+import { loadTrends } from '../store/actions/trends.actions';
 import { selectTrendsByProvider } from '../store/selectors';
 
 @Component({

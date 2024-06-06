@@ -11,12 +11,14 @@ import { TrendService } from './trend.service';
 import { TrendsListComponent } from './trends-list/trends-list.component';
 import { trendsEffects } from './store/effects';
 import { trendsFeatureKey, trendsReducer } from './store/reducers';
+import { AppDialogModule } from 'src/app/components/dialog/dialog.module';
 
 @NgModule({
   declarations: [TrendsListComponent, TrendDetailComponent],
   imports: [
     CommonModule,
     AppTrendsRoutingModule,
+    AppDialogModule,
     HttpClientModule,
     StoreModule.forFeature(trendsFeatureKey, trendsReducer),
     EffectsModule.forFeature(trendsEffects),
