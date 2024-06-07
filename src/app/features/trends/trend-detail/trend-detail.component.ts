@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { selectSelectedTrend } from '../store/selectors';
 import { Trend } from '../models/trend.model';
 import { deleteTrend } from '../store/actions/trends.actions';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-trend-detail',
@@ -37,12 +38,12 @@ import { deleteTrend } from '../store/actions/trends.actions';
         </div>
       </div>
       <app-dialog #editDialog>
-        <app-trend-form [newTrend]="false" (onCancel)="editDialog.open = false"></app-trend-form>
+        <app-trend-form [newTrend]="false" (onAction)="editDialog.open = false"></app-trend-form>
       </app-dialog>
       <app-dialog #deleteDialog class="trend__delete-dialog">
         <p>¿Estás seguro que quieres eliminar la noticia?</p>
         <div>
-          <a class="app-button app-button--primary" (click)="onDelete(trend)">Eliminar</a>
+          <a class="app-button app-button--primary" (click)="deleteDialog.open = false; onDelete(trend)">Eliminar</a>
           <a class="app-button app-button--secondary" (click)="deleteDialog.open = false">Cancelar</a>
         </div>
       </app-dialog>
@@ -54,9 +55,12 @@ import { deleteTrend } from '../store/actions/trends.actions';
 export class TrendDetailComponent {
   protected trend$ = this.store.select(selectSelectedTrend);
 
-  constructor(private store: Store) {}
+  constructor(private store: Store, private router: Router) {}
 
   onDelete(trend: Trend) {
     this.store.dispatch(deleteTrend({id: trend.id}));
+    this.trend$.subscribe(trend => {
+      if (!trend) this.router.navigate(['/trends']);
+    });
   }
 }

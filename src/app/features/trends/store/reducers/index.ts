@@ -39,10 +39,11 @@ export const trendsReducer = createReducer(
   on(TrendsApiActions.updateOneTrendSuccess, (state, { id, trend: trendChanges }): State => {
     const newState = adapter.updateOne({id, changes: trendChanges}, state );
     const selectedTrend = newState.selectedTrend;
-   return {...newState, selectedTrend: { ...selectedTrend, ...trendChanges } as Trend};
+    return {...newState, selectedTrend: { ...selectedTrend, ...trendChanges } as Trend};
   }),
   on(TrendsApiActions.deleteOneTrendSuccess, (state, { id }): State => {
-    return adapter.removeOne(id, state);
+    const newState = adapter.removeOne(id, state);
+    return { ...newState, selectedTrend: null }
   }),
 );
 

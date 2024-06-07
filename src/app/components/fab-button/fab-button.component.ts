@@ -14,10 +14,7 @@ import { Component, Input } from '@angular/core';
       :host {
         position: fixed;
         bottom: 22px;
-        left: 0;
-        right: 0;
-        display: flex;
-        justify-content: center;
+        left: calc(50% - 24px);
         z-index: 2;
       }
 

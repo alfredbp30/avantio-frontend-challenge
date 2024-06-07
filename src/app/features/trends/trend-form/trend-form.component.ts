@@ -12,10 +12,10 @@ import { Trend } from '../models/trend.model';
 
     <ng-template #actions>
       <div class="trend-form__actions">
-        <a type="submit" class="app-button app-button--primary" >
+        <a type="submit" class="app-button app-button--primary" (click)="onAction.emit()">
           <button type="submit">Guardar</button>
         </a>
-        <a class="app-button app-button--secondary" (click)="onCancel.emit()">Cancelar</a>
+        <a class="app-button app-button--secondary" (click)="onAction.emit()">Cancelar</a>
       </div>
     </ng-template>
     <form class="trend-form__fields" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
@@ -71,7 +71,7 @@ export class TrendFormComponent implements OnInit {
   private trendSelected: Trend | null = null;
 
   @Input() newTrend = true;
-  @Output() onCancel = new EventEmitter<void>();
+  @Output() onAction = new EventEmitter<void>();
 
   formGroup: FormGroup;
 
@@ -114,6 +114,7 @@ export class TrendFormComponent implements OnInit {
         id: this.trendSelected.id, trend: this.getDirtyValues(this.formGroup)
       }));
     }
+    this.formGroup.reset();
   }
 
   private getDirtyValues(form: FormGroup) {
