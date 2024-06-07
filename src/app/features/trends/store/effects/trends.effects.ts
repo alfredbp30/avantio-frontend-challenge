@@ -39,10 +39,9 @@ export class TrendsEffects {
   createOneTrend$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(TrendsActions.addTrend),
-      mergeMap(({trend}) => {
-        console.log('trend', trend);
-        return this.trendService.createOne(trend).pipe(
-          map((t) => TrendsApiActions.createOneTrendSuccess({ trend: t })),
+      mergeMap((res) => {
+        return this.trendService.createOne(res.trend).pipe(
+          map((trend) => TrendsApiActions.createOneTrendSuccess({ trend })),
           catchError(() => of(TrendsApiActions.createOneTrendError()))
         )
       })

@@ -121,7 +121,8 @@ export class TrendFormComponent implements OnInit {
     Object.keys(form.controls).forEach(key => {
       const currentControl = form.controls[key];
       if (currentControl.dirty) {
-        dirtyValues[key] = currentControl.value;
+        if (key === 'body') dirtyValues[key] = currentControl.value.split('\n\n');
+        else dirtyValues[key] = currentControl.value;
       }
     });
     return dirtyValues;

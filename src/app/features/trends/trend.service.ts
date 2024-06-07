@@ -37,8 +37,9 @@ export class TrendService {
 
   public updateOne(id: string, trend: Partial<Trend>): Observable<boolean> {
     const url = `${this.trendServiceUrl}/${id}`;
+    const body = { ...trend, body: trend.body?.join('\n\n')};
     return this.httpClient
-      .put<PutOneTrendResponse>(url, trend)
+      .put<PutOneTrendResponse>(url, body)
       .pipe(map((res) => res.modified === 1));
   }
 
