@@ -13,6 +13,7 @@ import { trendsEffects } from './store/effects';
 import { trendsFeatureKey, trendsReducer } from './store/reducers';
 import { AppDialogModule } from 'src/app/components/dialog/dialog.module';
 import { TrendFormComponent } from './trend-form/trend-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [TrendsListComponent, TrendDetailComponent, TrendFormComponent],
@@ -21,6 +22,7 @@ import { TrendFormComponent } from './trend-form/trend-form.component';
     AppTrendsRoutingModule,
     AppDialogModule,
     HttpClientModule,
+    ReactiveFormsModule,
     StoreModule.forFeature(trendsFeatureKey, trendsReducer),
     EffectsModule.forFeature(trendsEffects),
   ],

@@ -4,26 +4,58 @@
 .trend-form {
   &__actions {
     display: flex;
+    flex-direction: column;
     gap: 24px;
     width: 100%;
     .app-button {
       width: 100%;
+      button {
+        border: none;
+        background: transparent;
+        font-size: inherit;
+        color: inherit;
+        height: 100%;
+        width: 100%;
+      }
+    }
+    @media screen and (min-width: 768px) {
+      flex-direction: row-reverse;
     }
   }
   &__header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 64px;
+    margin-bottom: 48px;
     > h4 {
       width: 100%;
       margin-bottom: 0;
     }
+    &-actions {
+      @media screen and (max-width: 768px) {
+        display: none;
+      }
+    }
   }
 
-  &__fields {
+  &__content {
     display: flex;
     flex-direction: column;
     gap: 24px;
+    overflow-y: scroll;
+    height: calc(100vh - 122px);
+    padding-bottom: 32px;
+    -ms-overflow-style: none;
+    -width: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  &__footer {
+    margin-top: 32px;
+    @media screen and (min-width: 768px) {
+      display: none;
+    }
   }
 }
