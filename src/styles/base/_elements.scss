@@ -71,4 +71,9 @@ p {
     border: .6px solid $border-color;
     border-radius: 2px;
   }
+  .error-message {
+    color: red;
+    font-size: 12px;
+    line-height: 14px;
+  }
 }

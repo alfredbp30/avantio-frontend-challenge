@@ -1,9 +1,19 @@
-import { createAction } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
+import { Trend } from '../../models/trend.model';
 
 export const loadTrends = createAction('[Trends List Page] Enter');
 
-export const addTrend = createAction('[Trend action] Add Trend');
+export const addTrend = createAction(
+  '[Trend action] Add Trend',
+  props<{ trend: Trend }>()
+);
 
-export const deleteTrend = createAction('[Trend action] Delete Trend');
+export const deleteTrend = createAction(
+  '[Trend action] Delete Trend',
+  props<{ id: string }>()
+);
 
-export const updateTrend = createAction('[Update trend] Update Trend');
+export const updateTrend = createAction(
+  '[Update trend] Update Trend',
+  props<{ trend: Partial<Trend> }>()
+);

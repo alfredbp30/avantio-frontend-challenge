@@ -36,7 +36,7 @@ import { selectSelectedTrend } from '../store/selectors';
       </div>
     </article>
     <app-dialog #editDialog>
-      <app-trend-form [newTrend]="false"></app-trend-form>
+      <app-trend-form [newTrend]="false" (onCancel)="editDialog.open = false"></app-trend-form>
     </app-dialog>
     <app-dialog #deleteDialog class="trend__delete-dialog">
       <p>¿Estás seguro que quieres eliminar la noticia?</p>

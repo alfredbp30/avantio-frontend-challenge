@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 
 import { selectSelectedTrend } from '../store/selectors';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { addTrend, updateTrend } from '../store/actions/trends.actions';
 
 @Component({
   selector: 'app-trend-form',
@@ -10,10 +11,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
     <ng-template #actions>
       <div class="trend-form__actions">
-        <a type="submit" class="app-button app-button--primary">
+        <a type="submit" class="app-button app-button--primary" >
           <button type="submit">Guardar</button>
         </a>
-        <a class="app-button app-button--secondary">Cancelar</a>
+        <a class="app-button app-button--secondary" (click)="onCancel.emit()">Cancelar</a>
       </div>
     </ng-template>
     <form class="trend-form__fields" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
@@ -28,6 +29,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
         <div class="app-form-field">
           <label for="url-input">URL</label>
           <input formControlName="url" type="text" id="url-input" name="url-input" placeholder="https://www.elpais.com/..." aria-label="URL" />
+          <span class="error-message" *ngIf="controlIsInvalid('url')">Este campo es obligatorio</span>
         </div>
         <div class="app-form-field">
           <label for="author-input">Autor</label>
@@ -35,18 +37,22 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
             <option value="elpais">El País</option>
             <option value="elmundo">El Mundo</option>
           </select>
+          <span class="error-message" *ngIf="controlIsInvalid('provider')">Este campo es obligatorio</span>
         </div>
         <div class="app-form-field">
           <label for="title-input">Título</label>
           <input formControlName="title" type="text" id="title-input" name="title-input" placeholder="Manuel Rodríguez" aria-label="Titulo" />
+          <span class="error-message" *ngIf="controlIsInvalid('title')">Este campo es obligatorio</span>
         </div>
         <div class="app-form-field">
           <label for="image-input">URL Imagen</label>
           <input formControlName="image" type="text" id="image-input" name="image-input" placeholder="https://www.elpais.com/..." aria-label="URL Imagen" />
+          <span class="error-message" *ngIf="controlIsInvalid('image')">Este campo es obligatorio</span>
         </div>
         <div class="app-form-field">
           <label for="content-input">Contenido</label>
           <textarea formControlName="body" type="text" id="content-input" name="content-input" placeholder="Escribe aquí" aria-label="Contenido" rows="8"></textarea>
+          <span class="error-message" *ngIf="controlIsInvalid('body')">Este campo es obligatorio</span>
         </div>
         <div class="trend-form__footer">
           <ng-container *ngTemplateOutlet="actions"></ng-container>
@@ -88,9 +94,29 @@ export class TrendFormComponent implements OnInit {
     }));
   }
 
-  onSubmit() {
-    console.log('onsubmit');
+  controlIsInvalid(control: string) {
+    return this.formGroup.controls[control].touched && this.formGroup.controls[control].invalid;
   }
 
+  onSubmit() {
+    if (this.formGroup.invalid) return;
+    console.log('value', this.getDirtyValues(this.formGroup));
+    this.newTrend
+      ? this.store.dispatch(addTrend(this.formGroup.value))
+      : this.store.dispatch(updateTrend(this.getDirtyValues(this.formGroup)));
+  }
+
+  private getDirtyValues(form: FormGroup) {
+    let dirtyValues: any = {};
+    Object.keys(form.controls).forEach(key => {
+      const currentControl = form.controls[key];
+      if (currentControl.dirty) {
+        dirtyValues[key] = currentControl.value;
+      }
+    });
+    return dirtyValues;
 }
+
+}
+
 
