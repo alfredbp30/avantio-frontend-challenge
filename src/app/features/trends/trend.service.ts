@@ -30,25 +30,23 @@ export class TrendService {
   }
 
   public createOne(trend: Trend): Observable<Trend> {
-    const { id, createdAt, ...body } = trend;
     return this.httpClient
-      .post<PostOneTrendResponse>(this.trendServiceUrl, body)
+      .post<PostOneTrendResponse>(this.trendServiceUrl, trend)
       .pipe(map(({ trend }) => this.mapToTrendModel(trend)));
   }
 
-  public updateOne(trend: Trend): Observable<boolean> {
-    const { id, ...body } = trend;
+  public updateOne(id: string, trend: Partial<Trend>): Observable<boolean> {
     const url = `${this.trendServiceUrl}/${id}`;
     return this.httpClient
-      .put<PutOneTrendResponse>(url, body)
-      .pipe(map(({ modified }) => modified === 1));
+      .put<PutOneTrendResponse>(url, trend)
+      .pipe(map((res) => res.modified === 1));
   }
 
   public removeOne(id: string): Observable<boolean> {
     const url = `${this.trendServiceUrl}/${id}`;
     return this.httpClient
       .delete<DeleteOneTrendResponse>(url)
-      .pipe(map(({ success }) => success));
+      .pipe(map((res) => res.success));
   }
 
 

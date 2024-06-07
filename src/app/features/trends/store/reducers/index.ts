@@ -1,4 +1,4 @@
-import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
+import { createEntityAdapter, EntityAdapter, EntityState, Update } from '@ngrx/entity';
 import { createReducer, on } from '@ngrx/store';
 
 import * as TrendsApiActions from '../actions/trends-api.actions';
@@ -32,7 +32,16 @@ export const trendsReducer = createReducer(
   ),
   on(TrendsApiActions.loadOneTrendError, (state): State => {
     return { ...state, selectedTrend: null };
-  })
+  }),
+  on(TrendsApiActions.createOneTrendSuccess, (state, { trend }): State => {
+    return adapter.setOne(trend, state);
+  }),
+  on(TrendsApiActions.updateOneTrendSuccess, (state, { id, trend }): State => {
+    return adapter.updateOne({id, changes: trend}, state);
+  }),
+  on(TrendsApiActions.deleteOneTrendSuccess, (state, { id }): State => {
+    return adapter.removeOne(id, state);
+  }),
 );
 
 export const selectSelectedTrend = (state: State) => state.selectedTrend;

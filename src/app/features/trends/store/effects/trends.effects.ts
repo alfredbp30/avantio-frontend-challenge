@@ -5,14 +5,14 @@ import { of } from 'rxjs';
 import { routerNavigationAction } from '@ngrx/router-store';
 
 import * as TrendsApiActions from '../actions/trends-api.actions';
-import * as TrendsListPageActions from '../actions/trends.actions';
+import * as TrendsActions from '../actions/trends.actions';
 import { TrendService } from '../../trend.service';
 
 @Injectable()
 export class TrendsEffects {
   loadTrends$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(TrendsListPageActions.loadTrends),
+      ofType(TrendsActions.loadTrends),
       mergeMap(() =>
         this.trendService.getAll().pipe(
           map((trends) => TrendsApiActions.loadTrendsSuccess({ trends })),
@@ -35,5 +35,51 @@ export class TrendsEffects {
       )
     );
   });
+
+  createOneTrend$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(TrendsActions.addTrend),
+      mergeMap(({trend}) => {
+        console.log('trend', trend);
+        return this.trendService.createOne(trend).pipe(
+          map((t) => TrendsApiActions.createOneTrendSuccess({ trend: t })),
+          catchError(() => of(TrendsApiActions.createOneTrendError()))
+        )
+      })
+    )
+  });
+
+  updateOneTrend$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(TrendsActions.updateTrend),
+      mergeMap(({ id, trend }) =>
+        this.trendService.updateOne(id, trend).pipe(
+          map((success) => {
+            return success
+            ?  TrendsApiActions.updateOneTrendSuccess({ id, trend })
+            : TrendsApiActions.updateOneTrendError();
+          }),
+          catchError(() => of(TrendsApiActions.updateOneTrendError()))
+        )
+      )
+    )
+  });
+
+  deleteOneTrend$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(TrendsActions.deleteTrend),
+      mergeMap(({ id }) =>
+        this.trendService.removeOne(id).pipe(
+          map((success) => {
+            return success
+            ? TrendsApiActions.deleteOneTrendSuccess({ id })
+            : TrendsApiActions.deleteOneTrendError();
+          }),
+          catchError(() => of(TrendsApiActions.deleteOneTrendError()))
+        )
+      )
+    )
+  })
+
   constructor(private actions$: Actions, private trendService: TrendService) {}
 }

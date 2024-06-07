@@ -30,7 +30,7 @@ export const createOneTrendError = createAction(
 
 export const updateOneTrendSuccess = createAction(
   '[Trends/API] Update One Trend Success',
-  props<{ success: boolean }>()
+  props<{ id: string, trend: Partial<Trend> }>()
 );
 
 export const updateOneTrendError = createAction(
@@ -39,7 +39,7 @@ export const updateOneTrendError = createAction(
 
 export const deleteOneTrendSuccess = createAction(
   '[Trends/API] Delete One Trend Success',
-  props<{ success: boolean }>()
+  props<{ id: string }>()
 );
 
 export const deleteOneTrendError = createAction(

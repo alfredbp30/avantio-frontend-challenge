@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { selectSelectedTrend } from '../store/selectors';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { addTrend, updateTrend } from '../store/actions/trends.actions';
+import { Trend } from '../models/trend.model';
 
 @Component({
   selector: 'app-trend-form',
@@ -67,6 +68,7 @@ import { addTrend, updateTrend } from '../store/actions/trends.actions';
 })
 export class TrendFormComponent implements OnInit {
   protected trend$ = this.store.select(selectSelectedTrend);
+  private trendSelected: Trend | null = null;
 
   @Input() newTrend = true;
   @Output() onCancel = new EventEmitter<void>();
@@ -85,13 +87,18 @@ export class TrendFormComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.newTrend) return;
-    this.trend$.subscribe(trend => this.formGroup.patchValue({
-      url: trend?.url,
-      provider: trend?.provider,
-      title: trend?.title,
-      body: trend?.body?.join('\n\n'),
-      image: trend?.image
-    }));
+    this.trend$.subscribe(trend => {
+      if (trend) {
+        this.formGroup.patchValue({
+          url: trend?.url,
+          provider: trend?.provider,
+          title: trend?.title,
+          body: trend?.body?.join('\n\n'),
+          image: trend?.image
+        });
+        this.trendSelected = trend;
+      }
+    });
   }
 
   controlIsInvalid(control: string) {
@@ -100,10 +107,13 @@ export class TrendFormComponent implements OnInit {
 
   onSubmit() {
     if (this.formGroup.invalid) return;
-    console.log('value', this.getDirtyValues(this.formGroup));
-    this.newTrend
-      ? this.store.dispatch(addTrend(this.formGroup.value))
-      : this.store.dispatch(updateTrend(this.getDirtyValues(this.formGroup)));
+    if (this.newTrend) {
+      this.store.dispatch(addTrend({ trend: this.formGroup.getRawValue() as Trend }));
+    } else if (this.trendSelected) {
+      this.store.dispatch(updateTrend({
+        id: this.trendSelected.id, trend: this.getDirtyValues(this.formGroup)
+      }));
+    }
   }
 
   private getDirtyValues(form: FormGroup) {
@@ -115,7 +125,7 @@ export class TrendFormComponent implements OnInit {
       }
     });
     return dirtyValues;
-}
+  }
 
 }
 

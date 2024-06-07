@@ -15,5 +15,5 @@ export const deleteTrend = createAction(
 
 export const updateTrend = createAction(
   '[Update trend] Update Trend',
-  props<{ trend: Partial<Trend> }>()
+  props<{ id: string, trend: Partial<Trend> }>()
 );
